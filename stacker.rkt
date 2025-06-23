@@ -10,7 +10,9 @@
 (provide read-syntax)
 
 ;; define expander macro
-(define-macro (stacker-module-begin HANDLE-EXPR ...) #'(#%module-begin HANDLE-EXPR ...))
+(define-macro (stacker-module-begin HANDLE-EXPR ...) 
+  #'(#%module-begin HANDLE-EXPR ...
+     (display (first stack))))
 (provide (rename-out [stacker-module-begin #%module-begin]))
 
 ;; define stack ops
@@ -30,8 +32,10 @@
 (define (handle [arg #f])
   (cond 
     [(number? arg) (push-stack! arg)]
-    [(or (equal? + arg) (equal? * arg) )
+    [(or (equal? + arg) (equal? * arg))
      (define op-result (arg (pop-stack!) (pop-stack!)))
      (push-stack! op-result)]))
 
 (provide handle)
+;; provide bindings for + and *
+(provide + *)
