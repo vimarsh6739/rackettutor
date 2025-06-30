@@ -8,7 +8,11 @@
 
 (provide (rename-out [stackerizer-mb #%module-begin]))
 
-(define-macro-cases + 
-  [(+ FIRST) #'FIRST] 
-  [(+ FIRST NEXT ...) #'(list '+ FIRST (+ NEXT ...))])
+(define-macro (define-op OP)
+#'(define-macro-cases OP 
+  [(OP FIRST) #'FIRST] 
+  [(OP FIRST NEXT (... ...)) #'(list 'OP FIRST (OP NEXT (... ...)))]))
+
+(define-op +)
+(define-op *)
 
