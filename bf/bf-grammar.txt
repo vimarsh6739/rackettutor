@@ -1,0 +1,19 @@
+// grammars for bf
+
+bf-program : (bf-op | bf-loop)*
+bf-op : ">" | "<" | "+" | "-" | "." | ","
+bf-loop: "[" (bf-op | bf-loop)* "]"
+
+// alternate form
+
+bf-program : (bf-op | bf-loop)*
+bf-op : ">" | "<" | "+" | "-" | "." | ","
+bf-loop: "[" bf-program "]"
+
+// another alternate form
+
+bf-program : bf-exprs
+bf-exprs : (bf-op | bf-loop) *
+bf-op : ">" | "<" | "+" | "-" | "." | ","
+bf-loop: "[" bf-exprs "]"
+
